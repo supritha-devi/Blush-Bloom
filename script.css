@@ -1,0 +1,187 @@
+const products = [
+    {
+        name: "Classic Ballpoint Pen",
+        category: "pens",
+        description: "Smooth everyday writing",
+        price: 50,
+        image: "photo-1583485088034-697b5bc54ccd"
+    },
+    {
+        name: "Premium Gel Pen Set",
+        category: "pens",
+        description: "Fine tips for neat writing",
+        price: 149,
+        image: "photo-1455390582262-044cdead277a"
+    },
+    {
+        name: "Pastel Colour Pens",
+        category: "pens",
+        description: "Colourful pens for notes",
+        price: 199,
+        image: "photo-1513364776144-60967b0f800f"
+    },
+    {
+        name: "Black Ink Pen",
+        category: "pens",
+        description: "Simple professional writing",
+        price: 40,
+        image: "photo-1455390582262-044cdead277a"
+    },
+    {
+        name: "HB Drawing Pencils",
+        category: "pencils",
+        description: "Everyday writing and sketching",
+        price: 60,
+        image: "photo-1513364776144-60967b0f800f"
+    },
+    {
+        name: "Colour Pencil Set",
+        category: "pencils",
+        description: "Creative colours for your ideas",
+        price: 180,
+        image: "photo-1513364776144-60967b0f800f"
+    },
+    {
+        name: "Mechanical Pencil",
+        category: "pencils",
+        description: "Precise and comfortable writing",
+        price: 99,
+        image: "photo-1513364776144-60967b0f800f"
+    },
+    {
+        name: "Minimal Pencil Pouch",
+        category: "pouches",
+        description: "Keep stationery neatly organised",
+        price: 249,
+        image: "photo-1544816155-12df9643f363"
+    },
+    {
+        name: "Pastel Zipper Pouch",
+        category: "pouches",
+        description: "A compact everyday pencil case",
+        price: 299,
+        image: "photo-1544816155-12df9643f363"
+    },
+    {
+        name: "Canvas Stationery Pouch",
+        category: "pouches",
+        description: "Simple storage for your essentials",
+        price: 349,
+        image: "photo-1544816155-12df9643f363"
+    },
+    {
+        name: "A5 Ruled Notebook",
+        category: "notebooks",
+        description: "For notes, thoughts and plans",
+        price: 120,
+        image: "photo-1531346878377-a5be20888e57"
+    },
+    {
+        name: "Daily Planner",
+        category: "notebooks",
+        description: "Organise your daily schedule",
+        price: 199,
+        image: "photo-1517842645767-c639042777db"
+    },
+    {
+        name: "Sticky Notes Set",
+        category: "accessories",
+        description: "Mark important pages and reminders",
+        price: 79,
+        image: "photo-1455390582262-044cdead277a"
+    },
+    {
+        name: "Eraser Pack",
+        category: "accessories",
+        description: "Essential tools for clean corrections",
+        price: 30,
+        image: "photo-1513364776144-60967b0f800f"
+    },
+    {
+        name: "Mini Pencil Sharpener",
+        category: "accessories",
+        description: "A handy desk essential",
+        price: 35,
+        image: "photo-1513364776144-60967b0f800f"
+    },
+    {
+        name: "Study Desk Organiser",
+        category: "accessories",
+        description: "Keep your workspace tidy",
+        price: 399,
+        image: "photo-1498050108023-c5249f4df085"
+    }
+];
+
+const grid = document.getElementById("productGrid");
+const searchInput = document.getElementById("searchInput");
+const noResults = document.getElementById("noResults");
+
+const filterButtons = document.querySelectorAll(".filter");
+
+let selectedCategory = "all";
+
+function renderProducts() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+
+    const filteredProducts = products.filter(product => {
+        const searchableText =
+            `${product.name} ${product.category} ${product.description}`
+                .toLowerCase();
+
+        const matchesSearch = searchableText.includes(searchTerm);
+
+        const matchesCategory =
+            selectedCategory === "all" ||
+            product.category === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+    });
+
+    grid.innerHTML = filteredProducts.map(product => `
+        <article class="product-card">
+            <div class="product-image">
+                <img
+                    src="https://images.unsplash.com/${product.image}?auto=format&fit=crop&w=650&q=80"
+                    alt="${product.name}"
+                    loading="lazy"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x600/f5dfdc/493b38?text=Stationery';"
+                >
+
+                <span class="product-category">
+                    ${product.category.toUpperCase()}
+                </span>
+            </div>
+
+            <div class="product-info">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+
+                <div class="product-bottom">
+                    <span class="price">
+                        ₹${product.price}
+                    </span>
+                    <span class="view-label">VIEW ITEM ↗</span>
+                </div>
+            </div>
+        </article>
+    `).join("");
+
+    noResults.hidden = filteredProducts.length !== 0;
+}
+
+searchInput.addEventListener("input", renderProducts);
+
+filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        filterButtons.forEach(item => item.classList.remove("active"));
+
+        button.classList.add("active");
+
+        selectedCategory = button.dataset.category;
+
+        renderProducts();
+    });
+});
+
+renderProducts();

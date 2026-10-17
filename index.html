@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blush & Bloom | Stationery Showcase</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:#fff9f5;color:#403632}
+header{padding:20px 7%;display:flex;justify-content:space-between;align-items:center;background:#fff;border-bottom:1px solid #eee0dc}
+.logo{font-size:25px;font-weight:bold;text-decoration:none;color:#403632}
+.logo span{color:#c77f80}
+nav{display:flex;gap:20px}
+nav a{text-decoration:none;color:#403632;font-size:13px}
+.hero{padding:55px 7%;background:#f6e3df;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.hero h1{font-family:Georgia,serif;font-size:clamp(36px,5vw,62px);margin:15px 0}
+.hero h1 span{color:#bd7378;font-style:italic}
+.hero p{line-height:1.8;color:#766762}
+.hero img{width:45%;height:300px;object-fit:cover;border-radius:150px 150px 5px 5px}
+.button{display:inline-block;background:#403632;color:white;padding:13px 20px;text-decoration:none;border-radius:4px;margin-top:12px}
+.collection{padding:55px 7%;background:white}
+.eyebrow{color:#bd7378;letter-spacing:2px;font-size:11px;font-weight:bold}
+h2{font-family:Georgia,serif;font-size:35px;font-weight:normal}
+.controls{margin:25px 0}
+#searchInput{width:100%;max-width:450px;padding:14px;border:1px solid #e7d5cf;border-radius:5px;font-size:14px;outline:none}
+#searchInput:focus{border-color:#bd7378}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}
+.filter{border:1px solid #e8d8d2;background:#fff9f5;padding:10px 15px;border-radius:20px;cursor:pointer}
+.filter.active,.filter:hover{background:#bd7378;color:white;border-color:#bd7378}
+#productGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:25px 18px}
+.card{border:1px solid #f0e8e3;border-radius:7px;overflow:hidden;transition:.2s;background:white}
+.card:hover{transform:translateY(-5px);box-shadow:0 8px 20px #50352b12}
+.card img{width:100%;height:210px;object-fit:cover;background:#f5e7e1;display:block}
+.info{padding:15px}
+.info h3{font-size:15px;margin:0 0 8px}
+.info p{font-size:12px;color:#887a74;line-height:1.5;min-height:30px}
+.bottom{display:flex;justify-content:space-between;align-items:center;gap:5px}
+.price{font-weight:bold;color:#bd7378}
+.tag{font-size:9px;color:#887a74;text-transform:uppercase}
+#noResults{text-align:center;padding:35px;color:#887a74}
+.about{text-align:center;padding:65px 20px;background:#f7e6e1}
+.about p{max-width:550px;margin:15px auto;line-height:1.8;color:#766762}
+footer{padding:25px;text-align:center;font-size:12px;color:#887a74}
+@media(max-width:900px){#productGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){
+header{padding:16px 5%;flex-wrap:wrap;gap:12px}
+nav{gap:12px}
+nav a{font-size:11px}
+.hero{padding:35px 5%;flex-direction:column;align-items:flex-start}
+.hero img{width:100%;height:240px}
+.collection{padding:40px 5%}
+#productGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 10px}
+.card img{height:165px}
+.info{padding:10px}
+.info h3{font-size:13px}
+h2{font-size:29px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<a href="#" class="logo">blush<span>&</span>bloom.</a>
+<nav>
+<a href="#home">Home</a>
+<a href="#collection">Products</a>
+<a href="#about">About</a>
+</nav>
+</header>
+
+<section class="hero" id="home">
+<div>
+<span class="eyebrow">THE ART OF SIMPLE LIVING</span>
+<h1>Little things.<br><span>Lovely moments.</span></h1>
+<p>Discover everyday stationery essentials for studying, creating and organising your world.</p>
+<a class="button" href="#collection">Explore Products ↓</a>
+</div>
+<img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80" alt="Writing and stationery">
+</section>
+
+<section class="collection" id="collection">
+<span class="eyebrow">OUR CURATED COLLECTION</span>
+<h2>Find your everyday favourite.</h2>
+<p>Explore pens, pencils, notebooks, pouches and more.</p>
+
+<div class="controls">
+<input id="searchInput" type="search" placeholder="Search pen, pencil, pouch, notebook..." aria-label="Search products">
+
+<div class="filters">
+<button class="filter active" data-category="all">All Items</button>
+<button class="filter" data-category="pens">Pens</button>
+<button class="filter" data-category="pencils">Pencils</button>
+<button class="filter" data-category="pouches">Pouches</button>
+<button class="filter" data-category="notebooks">Notebooks</button>
+<button class="filter" data-category="accessories">Accessories</button>
+</div>
+</div>
+
+<div id="productGrid"></div>
+<p id="noResults" hidden>No products found. Try another keyword.</p>
+</section>
+
+<section class="about" id="about">
+<span class="eyebrow">SIMPLE THINGS, BIG IDEAS</span>
+<h2>Make everyday beautiful.</h2>
+<p>A thoughtfully designed stationery showcase featuring useful essentials for students, writers and creative minds.</p>
+</section>
+
+<footer>
+<a href="#" class="logo">blush<span>&</span>bloom.</a>
+<p>Independent stationery product showcase. Product prices are illustrative.</p>
+</footer>
+
+<script>
+const products=[
+{name:"Classic Ballpoint Pen",category:"pens",description:"Smooth everyday writing",price:50,image:"photo-1583485088034-697b5bc54ccd"},
+{name:"Premium Gel Pen",category:"pens",description:"Fine tip for neat notes",price:80,image:"photo-1455390582262-044cdead277a"},
+{name:"Pastel Pen Set",category:"pens",description:"Colourful pens for creative notes",price:199,image:"photo-1513364776144-60967b0f800f"},
+{name:"Black Ink Pen",category:"pens",description:"Simple professional writing",price:40,image:"photo-1583485088034-697b5bc54ccd"},
+{name:"HB Drawing Pencils",category:"pencils",description:"Everyday writing and sketching",price:60,image:"photo-1513364776144-60967b0f800f"},
+{name:"Colour Pencil Set",category:"pencils",description:"Bring your ideas to life",price:180,image:"photo-1513364776144-60967b0f800f"},
+{name:"Mechanical Pencil",category:"pencils",description:"Precise and comfortable writing",price:99,image:"photo-1455390582262-044cdead277a"},
+{name:"Minimal Pencil Pouch",category:"pouches",description:"Keep stationery organised",price:249,image:"photo-1544816155-12df9643f363"},
+{name:"Pastel Zipper Pouch",category:"pouches",description:"Compact everyday pencil case",price:299,image:"photo-1544816155-12df9643f363"},
+{name:"Canvas Stationery Pouch",category:"pouches",description:"Simple storage for essentials",price:349,image:"photo-1544816155-12df9643f363"},
+{name:"A5 Ruled Notebook",category:"notebooks",description:"For notes, thoughts and plans",price:120,image:"photo-1531346878377-a5be20888e57"},
+{name:"Daily Planner",category:"notebooks",description:"Organise your daily schedule",price:199,image:"photo-1517842645767-c639042777db"},
+{name:"Sticky Notes Set",category:"accessories",description:"Mark pages and reminders",price:79,image:"photo-1455390582262-044cdead277a"},
+{name:"Eraser Pack",category:"accessories",description:"For clean and easy corrections",price:30,image:"photo-1513364776144-60967b0f800f"},
+{name:"Mini Pencil Sharpener",category:"accessories",description:"A handy desk essential",price:35,image:"photo-1513364776144-60967b0f800f"},
+{name:"Desk Organiser",category:"accessories",description:"Keep your workspace tidy",price:399,image:"photo-1498050108023-c5249f4df085"}
+];
+
+const grid=document.getElementById("productGrid");
+const search=document.getElementById("searchInput");
+const noResults=document.getElementById("noResults");
+const buttons=document.querySelectorAll(".filter");
+let selected="all";
+
+function showProducts(){
+const term=search.value.trim().toLowerCase();
+
+const results=products.filter(p=>{
+const text=(p.name+" "+p.category+" "+p.description).toLowerCase();
+return text.includes(term)&&(selected==="all"||p.category===selected);
+});
+
+grid.innerHTML=results.map(p=>`
+<article class="card">
+<img src="https://images.unsplash.com/${p.image}?auto=format&fit=crop&w=600&q=80"
+alt="${p.name}" loading="lazy"
+onerror="this.onerror=null;this.src='https://placehold.co/600x400/f5dfdc/493b38?text=${encodeURIComponent(p.name)}'">
+<div class="info">
+<span class="tag">${p.category}</span>
+<h3>${p.name}</h3>
+<p>${p.description}</p>
+<div class="bottom">
+<span class="price">₹${p.price}</span>
+<span class="tag">Stationery</span>
+</div>
+</div>
+</article>`).join("");
+
+noResults.hidden=results.length>0;
+}
+
+search.addEventListener("input",showProducts);
+
+buttons.forEach(button=>{
+button.addEventListener("click",()=>{
+buttons.forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+selected=button.dataset.category;
+showProducts();
+});
+});
+
+showProducts();
+</script>
+
+</body>
+</html>
